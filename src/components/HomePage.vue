@@ -16,12 +16,15 @@
       >
         Add
       </button>
-
+      <br/>
+      <br/>
+      <br/>
       <div v-if="data.length" class="todo-list">
+        <p>{{ countTodo }} Task</p>
         <ol>
           <li v-for="(item, index) in data" :key="index">
             <div class="todo-item">
-            
+              {{ index + 1 }}
               <input 
                 v-if="isEditing === index" 
                 type="text" 
@@ -83,6 +86,7 @@ import { ref, onMounted } from 'vue';
 export default {
   setup() {
     const data = ref([]);
+    const countTodo = ref(0);
     const todo = ref('');
     const message = ref('');
     const isEditing = ref(null);  // Track the index of the item being edited
@@ -92,6 +96,7 @@ export default {
       const storedTodos = localStorage.getItem('todo');
       if (storedTodos) {
         data.value = JSON.parse(storedTodos);
+        countTodo.value = data.value.length;    
       } else {
         message.value = 'No to-do records found.';
       }
@@ -101,6 +106,7 @@ export default {
       if (todo.value.trim()) {
         data.value.push({ text: todo.value, done: false });
         localStorage.setItem('todo', JSON.stringify(data.value));
+        countTodo.value += 1;
         todo.value = '';
         message.value = '';
       } else {
@@ -132,6 +138,7 @@ export default {
     const handleRemove = (index) => {
       data.value.splice(index, 1);
       localStorage.setItem('todo', JSON.stringify(data.value));
+      countTodo.value -=1;
     };
 
     onMounted(() => {
@@ -142,6 +149,7 @@ export default {
       data,
       message,
       todo,
+      countTodo,
       isEditing,
       editText,
       handleSubmit,
