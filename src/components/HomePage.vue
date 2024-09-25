@@ -1,6 +1,6 @@
 <template>
   <div class="main-content">
-    <h1>To-Do List</h1>
+    <h1>Vue JS To-Do List</h1>
     <div class="card">
       <p v-if="message" class="message">{{ message }}</p>
       <input
@@ -75,6 +75,10 @@
       </div>
       <p v-else class="empty-list">No to-dos yet. Add one above!</p>
     </div>
+    <br/>
+    <a href="https://github.com/njoro-njoroge/vuejs-to-do-list" target="_blank" class="git-link">
+  <i class="fab fa-github"></i> Get it on git
+</a>
   </div>
 </template>
 
